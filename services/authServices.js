@@ -34,3 +34,19 @@ export const login = async (email, password) => {
 
     return res;
 }
+
+export const getUserData = () => {
+    try {
+        let data = JSON.parse(localStorage.getItem('auth'));
+
+        return {
+            isAuthenticated: Boolean(data.idToken),
+            email: data.email
+        }
+    } catch (error) {
+        return {
+            isAuthenticated: false,
+            email: ''
+        }
+    }
+}
