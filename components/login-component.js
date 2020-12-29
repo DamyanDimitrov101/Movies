@@ -47,10 +47,7 @@ class Login extends HTMLElement {
  
         login(email,password)
             .then(res=>{
-                if (res.hasOwnProperty('error')) {
-                    notify(res.error.message, 'error');
-                    return; 
-                }
+                
                 notify('Logged in!');
                 // TODO: Redirect to home
             })
