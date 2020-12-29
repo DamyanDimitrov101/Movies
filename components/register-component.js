@@ -41,17 +41,17 @@ class Register extends HTMLElement {
 
         
         if (password.length < 6) {
-            console.error('password too short!');
+            notify('password too short!', 'error');
             return;
         }
 
         
         if (password!= repeatPassword) {
-            console.error('password do not match!');
+            notify('password do not match!', 'error');
             return;
         }
 
-        console.log('yes');
+        notify('Registered!');
     }
 }
 
