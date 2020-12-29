@@ -1,7 +1,9 @@
 import { html, render } from 'https://unpkg.com/lit-html?module';
 
-const template = () => html`
-    <form class="text-center border border-light p-5" action="" method="">
+import { login } from "../services/authServices.js";
+
+const template = (ctx) => html`
+    <form class="text-center border border-light p-5" @submit=${ctx.onSubmit}>
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" placeholder="Email" name="email" value="">
@@ -24,7 +26,38 @@ class Login extends HTMLElement {
 
 
     render(){
-        render(template(), this);
+        render(template(this), this, {eventContext: this});
+    }
+
+    onSubmit(e){
+        e.preventDefault();
+ 
+        let formData = new FormData(e.target);
+ 
+        let email = formData.get('email');
+        let password = formData.get('password');
+       
+        
+        if (password.length < 6) {
+            notify('password too short!', 'error');
+            return;
+        }
+ 
+        
+ 
+        login(email,password)
+            .then(res=>{
+                if (res.hasOwnProperty('error')) {
+                    notify(res.error.message, 'error');
+                    return; 
+                }
+                notify('Logged in!');
+                // TODO: Redirect to home
+            })
+            .catch(err=>{
+                notify(err.message, 'error');
+                return;
+            });
     }
 }
 
