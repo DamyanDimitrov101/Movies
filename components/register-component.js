@@ -1,5 +1,7 @@
 import { html, render } from 'https://unpkg.com/lit-html?module';
 
+import { register } from "../services/authServices.js";
+
 const template = (ctx) => html`
     <form class="text-center border border-light p-5" @submit=${ctx.onSubmit}>
         <div class="form-group">
@@ -51,7 +53,14 @@ class Register extends HTMLElement {
             return;
         }
 
-        notify('Registered!');
+        register(email,password)
+            .then(res=>{
+                notify('Registered!');
+                // TODO: Redirect to home
+            })
+            .catch(err=>{
+                notify(err.message, 'error')
+            });
     }
 }
 
