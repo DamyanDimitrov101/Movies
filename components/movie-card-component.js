@@ -18,7 +18,6 @@ const template = ({data:{imageUrl,title, key}}) => html`
 class MovieCard extends HTMLElement {
 
     connectedCallback() {
-        console.log(this.data);
         this.render();
     }
 
