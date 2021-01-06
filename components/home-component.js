@@ -1,5 +1,5 @@
 import { html, render } from 'https://unpkg.com/lit-html?module';
-import { getUserData } from '../services/authServices.js';
+import { getUserData, setWelcomeElement } from '../services/authServices.js';
 
 const template = (ctx) => html`
         <div class="jumbotron jumbotron-fluid text-light" style="background-color: #343a40;">
@@ -22,6 +22,8 @@ class Home extends HTMLElement {
     connectedCallback(){
         this.user = getUserData();
 
+        setWelcomeElement(this.user);
+
         this.render();
     }
 
@@ -29,5 +31,7 @@ class Home extends HTMLElement {
         render(template(this), this, { eventContext: this});
     }
 }
+
+
 
 export default Home;

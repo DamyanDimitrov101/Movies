@@ -17,3 +17,10 @@ export const getOneMovie = async (id) => {
     
     return res;
 }
+
+export const likeMovie = async (id, creator) => {
+  
+    let res = await request(`${databaseURL}/movies/${id}/likes.json`, 'POST', creator);
+
+    return res;
+}

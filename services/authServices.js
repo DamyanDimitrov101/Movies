@@ -38,15 +38,36 @@ export const login = async (email, password) => {
 export const getUserData = () => {
     try {
         let data = JSON.parse(localStorage.getItem('auth'));
-
         return {
             isAuthenticated: Boolean(data.idToken),
-            email: data.email
+            email: data.email,
+            uid: data.localId
         }
     } catch (error) {
         return {
             isAuthenticated: false,
-            email: ''
+            email: '',
+            uid: ''
         }
     }
+}
+
+export const setWelcomeElement = (user) => {
+    if (user.email!='') {        
+        let welcomeElement = document.getElementById('welcomeTag');
+        welcomeElement.textContent = `Welcome ${user.email}`;
+    }else{            
+        let welcomeElement = document.getElementById('welcomeTag');
+        welcomeElement.textContent = ``;
+    }
+}
+
+
+export const setLogAndRegElement = (typeDisplay) => {    
+    let loginElement = document.getElementById('loginElement');
+    let registerElement = document.getElementById('registerElement');
+
+    loginElement.style.display =  typeDisplay;
+    registerElement.style.display = typeDisplay;
+
 }

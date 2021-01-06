@@ -1,18 +1,17 @@
 export const request = async (url, method, body) => {
-    console.log();
-
     let options = {
         method
     };
 
     if (body) {
-        Object.assign(options,{
-            headers:{ 'content-type': 'application/json'},
+        Object.assign(options, {
+            headers: { 'content-type': 'application/json' },
             body: JSON.stringify(body)
         })
     }
 
-    let response = await fetch(url, options);
+    
+    let response = await fetch(url, options); 
 
     let data = await response.json();
 

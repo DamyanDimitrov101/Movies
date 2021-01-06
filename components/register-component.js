@@ -1,6 +1,6 @@
 import { html, render } from 'https://unpkg.com/lit-html?module';
-
-import { register } from "../services/authServices.js";
+import {Router} from 'https://unpkg.com/@vaadin/router';
+import { getUserData, register, setLogAndRegElement, setWelcomeElement } from "../services/authServices.js";
 
 const template = (ctx) => html`
     <form class="text-center border border-light p-5" @submit=${ctx.onSubmit}>
@@ -55,11 +55,20 @@ class Register extends HTMLElement {
 
         register(email,password)
             .then(res=>{
+                if (res.hasOwnProperty('error')) {
+                    throw new Error(res.error.message);
+                }
+
+                setWelcomeElement(getUserData());
+
+                setLogAndRegElement('none');
+
                 notify('Registered!');
-                // TODO: Redirect to home
+                Router.go('/');
             })
             .catch(err=>{
-                notify(err.message, 'error')
+                notify(err.message, 'error');
+                return;
             });
     }
 }
