@@ -26,7 +26,7 @@ const template = ({ movie, user, onLike}) => html`
             ${user.uid === movie._ownerId
                 ?
                 html`<a class="btn btn-danger" href="#">Delete</a>
-                     <a class="btn btn-warning" href="#">Edit</a>
+                     <a class="btn btn-warning" href="/edit/${movie._id}">Edit</a>
                     `
                 :
                 html`    

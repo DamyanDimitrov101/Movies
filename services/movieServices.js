@@ -24,3 +24,10 @@ export const likeMovie = async (id, creator) => {
 
     return res;
 }
+
+export const editMovie = async (id,title,description,imageUrl) => {
+  
+    let res = await request(`${databaseURL}/movies/${id}.json`, 'PATCH', {title, description, imageUrl});
+
+    return res;
+}
