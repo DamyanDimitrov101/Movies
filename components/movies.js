@@ -1,14 +1,14 @@
 import { html, render } from 'https://unpkg.com/lit-html?module';
 import { getAllMovies } from '../services/movieServices.js';
-
+import { Router } from 'https://unpkg.com/@vaadin/router';
 
 const template = (ctx) => html`<h1 class="text-center">Movies</h1>
 <section>
     <a href="/createMovie" class="btn btn-warning ">Add Movie</a>
-    <form class="search float-right">
+    <form class="search float-right" @submit="${ctx.onSearch}">
         <label>Search: </label>
-        <input type="text">
-        <input type="submit" class="btn btn-info" value="Search">
+        <input type="text" name="name">
+        <button class="btn btn-info" type="submit">Search</button>
     </form>
 </section>
 
@@ -35,6 +35,22 @@ class Movies extends HTMLElement {
 
         this.render();
 
+    }
+
+    onSearch(e){
+        e.preventDefault();
+
+        this.movies = [];
+        let formData = new FormData(e.target);
+        let nameMovie = formData.get('name');
+        
+        getAllMovies(nameMovie)
+        .then(res=>{                
+                this.movies  = res;
+                this.render();
+            })
+
+            this.render();
     }
 
     render() {

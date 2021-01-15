@@ -18,6 +18,7 @@ const template = ({data:{imageUrl,title, key}}) => html`
 class MovieCard extends HTMLElement {
 
     connectedCallback() {
+        
         this.render();
     }
 
@@ -25,36 +26,6 @@ class MovieCard extends HTMLElement {
         render(template(this), this, { eventContext: this });
     }
 
-    onSubmit(e) {
-        e.preventDefault();
-
-        let formData = new FormData(e.target);
-
-        let email = formData.get('email');
-        let password = formData.get('password');
-        let repeatPassword = formData.get('repeatPassword');
-
-
-        if (password.length < 6) {
-            notify('password too short!', 'error');
-            return;
-        }
-
-
-        if (password != repeatPassword) {
-            notify('password do not match!', 'error');
-            return;
-        }
-
-        register(email, password)
-            .then(res => {
-                notify('Registered!');
-                // TODO: Redirect to home
-            })
-            .catch(err => {
-                notify(err.message, 'error')
-            });
-    }
 }
 
 export default MovieCard;

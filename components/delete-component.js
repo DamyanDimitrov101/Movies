@@ -4,9 +4,11 @@ import { Router } from 'https://unpkg.com/@vaadin/router';
 
 
 const template = (ctx) => html`
-    <h1>Deleting!</h1>
+    <section id="deleteComponent">
+    <h2>Deleting!</h2>
 
-    <h3>Please wait.</h3>
+    <p>Please wait.</p>
+    </section>  
 `;
 
 
