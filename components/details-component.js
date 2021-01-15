@@ -5,14 +5,16 @@ import { getUserData } from '../services/authServices.js';
 import {Router} from 'https://unpkg.com/@vaadin/router';
 
 const hasLiked = (likes, uid) => {
-    
+    if (!likes) {
+        return false;
+    }
     return Object
             .values(likes)
             .some(like=> like == uid);
 }
 
 
-const template = ({ movie, user, onLike}) => html`
+const template = ({ _id,movie, user, onLike}) => html`
 <div class="container">
     <div class="row bg-light text-dark">
         <h1>Movie title: ${movie.title}</h1>
@@ -25,8 +27,8 @@ const template = ({ movie, user, onLike}) => html`
             <p>${movie.description}</p>
             ${user.uid === movie._ownerId
                 ?
-                html`<a class="btn btn-danger" href="#">Delete</a>
-                     <a class="btn btn-warning" href="/edit/${movie._id}">Edit</a>
+                html`<a class="btn btn-danger" href="/delete/${_id}">Delete</a>
+                     <a class="btn btn-warning" href="/edit/${_id}">Edit</a>
                     `
                 :
                 html`    
@@ -53,7 +55,7 @@ class Details extends HTMLElement {
         getOneMovie(this.location.params.id)
             .then(movie => {
                 this.movie = movie;
-
+                this._id = this.location.params.id;
                 this.render();
             });
     }

@@ -31,3 +31,18 @@ export const editMovie = async (id,title,description,imageUrl) => {
 
     return res;
 }
+
+export const createMovie = async (title,description,imageUrl, _ownerId) => {
+  
+    let likes = {};
+    let res = await request(`${databaseURL}/movies.json`, 'POST', {title, description, imageUrl, _ownerId, likes});
+
+    return res;
+}
+
+export const deleteMovie = async (id) => {
+  
+    let res = await request(`${databaseURL}/movies/${id}.json`, 'DELETE');
+
+    return res;
+}
